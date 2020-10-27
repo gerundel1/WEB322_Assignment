@@ -1,0 +1,37 @@
+      <!-- How It Works section -->
+      <div class="container">
+        <h1 class="display-6 text-center" style="margin-bottom: 2rem;">How it works</h1>
+      </div>
+      <div class="container">
+        <div class="row no-gutters">
+          {{#each data}}
+            {{#unless isAMeal}}
+            <div class="col-3" >
+              <div class="card" style="width: 95%;">
+                  <img class="card-img-top" src="{{image}}" alt="">
+                  <div class="card-body">
+                    <p class="card-text text-center">{{title}}</p>
+                  </div>
+                </div>
+            </div>
+            {{/unless}}
+          {{/each}}  
+        </div>
+      </div>
+      <!-- Top Rated Meals Section -->
+      <div class="container">
+        <h1 class="display-5 text-center" style="margin-top: 2rem; margin-bottom: 2rem;">Our Top Rated Meals</h1>
+      </div>
+      <div class="container">
+        <div class="row" id="meals">
+          {{#each data}}
+            {{#if rated}}
+            <div class="col-3">
+                <img class="card-img-top" src="{{image}}" alt="Image">
+                <h5 class="display-6 text-center">{{title}}</h5>
+                <h5 class="display-5 text-center text-success font-italic">{{price}}</h5>
+            </div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>

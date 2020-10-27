@@ -1,0 +1,20 @@
+<!-- Meal Packages -->  
+    <div class="container">
+        <h1 class="display-5 text-center" style="margin-top: 2rem; margin-bottom: 2rem;">Check Out Our Meal Packages</h1>
+    </div>
+      <div class="container">
+        <div class="row no-gutters" id="meal_packages" style="margin-bottom: 3em;">
+         {{#each data}}
+            <div class="col-3">
+                <div class="card" style="width: 95%;">
+                    <img class="card-img-top" src="{{image}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="display-6 text-center">{{title}}</h5>
+                        <h5 class="display-5 text-center text-success font-italic">{{price}}</h5>
+                        <h5 class="display-6 text-center">Number of Meals: {{amount}}</h5>
+                    </div>
+                </div>
+            </div>
+         {{/each}}
+        </div>
+      </div>
