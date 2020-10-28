@@ -89,4 +89,23 @@ app.post("/register" , (req, res) => {
     }
 });
 
+app.post ("/login", (req,res) => {
+    var formData = req.body;
+    var errors = dataService.validateLoginForm(formData);
+
+    
+    if (!errors.isValid) {
+        res.render('loginForm', {
+            data: {"formData": formData, "errors": errors},
+            layout: "logAndReg"
+        });
+    }
+
+    else {
+        res.render('renderDataMain', {
+            data: dataService.getMealPackages()
+        });
+    }
+})
+
 app.listen(HTTP_PORT, onHttpStart);
