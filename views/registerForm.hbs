@@ -10,20 +10,44 @@
                         </div>
                         <form action="/register" method="POST" name="registration">
                            <div class="form-group">
-                              <label for="first-name">First Name</label>
-                              <input type="text"  name="first-name" class="form-control" id="first-name" aria-describedby="nameHelp" placeholder="Enter First Name">
+                              <label for="firstName">First Name</label>
+                              <input type="text"  name="firstName" class="form-control" id="firstName" aria-describedby="nameHelp"
+                              placeholder="Enter First Name" value="{{data.formData.firstName}}">
+                              {{#if data.errors.firstName}}
+                                 <div class="my-feedback" style="color:red;margin-top:5px" > 
+                                    <strong>Warning:</strong> {{data.errors.firstName}}
+                                 </div>
+                              {{/if}}
                            </div>
                            <div class="form-group">
-                              <label for="last-name">Last Name</label>
-                              <input type="text"  name="last-name" class="form-control" id="last-name" aria-describedby="nameHelp" placeholder="Enter Last Name">
+                              <label for="lastName">Last Name</label>
+                              <input type="text"  name="lastName" class="form-control" id="lastName" aria-describedby="nameHelp" 
+                              placeholder="Enter Last Name" value="{{data.formData.lastName}}">
+                              {{#if data.errors.lastName}}
+                                 <div class="my-feedback" style="color:red;margin-top:5px" > 
+                                    <strong>Warning:</strong> {{data.errors.lastName}}
+                                 </div>
+                              {{/if}}
                            </div>
                            <div class="form-group">
                               <label for="email">Email address</label>
-                              <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                              <input type="text" name="email"  class="form-control" id="email" aria-describedby="emailHelp" 
+                              placeholder="Enter email" value="{{data.formData.email}}">
+                              {{#if data.errors.email}}
+                                 <div class="my-feedback" style="color:red;margin-top:5px" > 
+                                    <strong>Warning:</strong> {{data.errors.email}}
+                                 </div>
+                              {{/if}}
                            </div>
                            <div class="form-group">
                               <label for="password">Password</label>
-                              <input type="password" name="password" id="password"  class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
+                              <input type="password" name="password" id="password"  class="form-control" aria-describedby="emailHelp" 
+                              placeholder="Enter Password" value="{{data.formData.password}}">
+                               {{#if data.errors.password}}
+                                 <div class="my-feedback" style="color:red;margin-top:5px" > 
+                                    <strong>Warning:</strong> {{data.errors.password}}
+                                 </div>
+                              {{/if}}
                            </div>
                            <div class="col-md-12 text-center mb-3">
                               <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Get Started</button>
