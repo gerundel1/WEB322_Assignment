@@ -1,5 +1,5 @@
 /*********************************************************************************
-* WEB322 – Assignment 02
+* WEB322 – Assignment 03-05
 * I declare that this assignment is my own work in accordance with Seneca Academic Policy. No part
 * of this assignment has been copied manually or electronically from any other source
 * (including 3rd party web sites) or distributed to other students.
@@ -16,9 +16,15 @@ var HTTP_PORT = process.env.PORT || 8080;
 const express = require("express");
 const app = express();
 const path = require("path");
+const clientSessions = require("client-sessions");
 var nodemailer = require('nodemailer');
+require('dotenv').config();
+const connectionString = process.env.MONGODB_CONN_STR;
 
-const dataService = require('./data-service');
+const data_service = require("./data-service.js");
+const dataService = data_service(connectionString);
+
+const validation = require("./validation.js");
 
 const bodyParser = require("body-parser"); 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,13 +54,13 @@ function onHttpStart() {
 
 app.get("/", function(req,res){
     res.render('renderDataMain', {
-        data: dataService.getMealPackages()
+        data: validation.getMealPackages()
     });
 });
 
 app.get("/packages", function(req,res){
     res.render('renderDataPackages', {
-        data: dataService.getUnratedPackages()
+        data: validation.getUnratedPackages()
     });
 });
 
@@ -74,7 +80,7 @@ app.get("/register",  (req, res) => {
 
 app.post("/register" , (req, res) => {
     var formData = req.body;
-    var errors = dataService.validateUserForm(formData);
+    var errors = validation.validateUserForm(formData);
 
     if (!errors.isValid) {
         res.render('registerForm', {
@@ -83,29 +89,36 @@ app.post("/register" , (req, res) => {
         });
     }
     else {
-        res.render('dashboard', {
-            data: {"formData": formData},
-            layout: "logAndReg"
+        dataService.addUser(formData)
+        .then(function () {
+            res.render('dashboard', {
+                data: {"formData": formData},
+                layout: "logAndReg"
+            });
+        })
+        .catch(err => {
+          res.send("Not registered, error: " + err);
         });
-        var mailOptions = {
-            from: 'germalikov@gmail.com',
-            to: formData.email,
-            subject: 'Finishing Registration',
-            text: 'Thank you for registration! Please proceed to login page.'
-          };
-          transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-              console.log(error);
-            } else {
-              console.log('Email sent: ' + info.response);
-            }
-          });
+       
+        // var mailOptions = {
+        //     from: 'germalikov@gmail.com',
+        //     to: formData.email,
+        //     subject: 'Finishing Registration',
+        //     text: 'Thank you for registration! Please proceed to login page.'
+        //   };
+        //   transporter.sendMail(mailOptions, function(error, info){
+        //     if (error) {
+        //       console.log(error);
+        //     } else {
+        //       console.log('Email sent: ' + info.response);
+        //     }
+        //   });
     }
 });
 
 app.post ("/login", (req,res) => {
     var formData = req.body;
-    var errors = dataService.validateLoginForm(formData);
+    var errors = validation.validateLoginForm(formData);
 
     
     if (!errors.isValid) {
@@ -117,9 +130,16 @@ app.post ("/login", (req,res) => {
 
     else {
         res.render('renderDataMain', {
-            data: dataService.getMealPackages()
+            data: validation.getMealPackages()
         });
     }
 })
 
-app.listen(HTTP_PORT, onHttpStart);
+dataService.connect().then(()=>{
+    app.listen(HTTP_PORT, ()=>{console.log("API listening on: " + HTTP_PORT)});
+  })
+  .catch((err)=>{
+    console.log("unable to start the server: ", err.message);
+    console.log("Did you remember to set your MongoDB Connection String in .env?");
+    process.exit();
+  });
