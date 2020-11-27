@@ -110,8 +110,8 @@ module.exports.validateUserForm = function(formData) {
 }
 
 module.exports.validateLoginForm = function(formData) {
-    var errors = {isValid: true, username: "", password: ""};
-    validateUsername(formData.username, errors);
+    var errors = {isValid: true, email: "", password: ""};
+    validateEmail(formData.email, errors);
     validateLoginPassword(formData.password, errors);
     return errors;
 }
@@ -171,14 +171,6 @@ function validatePassword (input, errors) {
     else if (!regCapitalLetter.test(input) || !regLowerCaseLetter.test(input) || !regNumber.test(input)) {
         errors.isValid = false;
         errors.password += "Password must contain a LOWERCASE letter, an UPPERCASE letter and a NUMBER.";
-        return;
-    }
-}
-
-function validateUsername(input, errors) {
-    if(!input){
-        errors.isValid = false;
-        errors.username += "Please Enter Username!";
         return;
     }
 }

@@ -1,8 +1,16 @@
 <div class="jumbotron text-center mt-5 mb-5">
-  <h1 class="display-4">Thank You, {{data.formData.firstName}} for registration</h1>
+  <h1 class="display-4">{{message.formMessage}} {{data.formData.fullName}}</h1>
+  {{#if isLogin}}
+    <p class="lead"><strong>Proceed to the homepage</strong> for searching your favorite meal!</p>
+    <hr>
+    <p class="lead">
+      <a class="btn btn-primary btn-sm" href="/logout" role="button">Log out</a>
+    </p>
+  {{else}}
   <p class="lead"><strong>Please check your email</strong> for further instructions on how to complete your account setup.</p>
   <hr>
   <p class="lead">
     <a class="btn btn-primary btn-sm" href="/" role="button">Continue to homepage</a>
   </p>
+  {{/if}}
 </div>

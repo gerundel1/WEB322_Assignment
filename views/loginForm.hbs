@@ -10,12 +10,12 @@
 					</div>
                    <form action="/login" method="post" name="login">
                            <div class="form-group">
-                              <label for="username">Username:</label>
-                              <input type="text" name="username"  class="form-control" id="username" aria-describedby="usernameHelp" 
-                              placeholder="Enter username" value="{{data.formData.username}}">
-                              {{#if data.errors.username}}
+                              <label for="email">Email:</label>
+                              <input type="text" name="email"  class="form-control" id="email" aria-describedby="emailHelp" 
+                              placeholder="Enter email" value="{{data.formData.email}}">
+                              {{#if data.errors.email}}
                                  <div class="my-feedback" style="color:red;margin-top:5px" > 
-                                    <strong>Warning:</strong> {{data.errors.username}}
+                                    <strong>Warning:</strong> {{data.errors.email}}
                                  </div>
                               {{/if}}
                            </div>

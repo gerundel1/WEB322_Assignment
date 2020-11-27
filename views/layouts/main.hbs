@@ -38,6 +38,16 @@
           </ul>
           
         </div>
+        {{#if user.formData}}
+            <ul class="nav navbar-nav"> 
+            <button type="button" id="Button2" class="btn btn-outline-info" data-toggle="modal" data-target="#modalRegisterForm">Log Out</button>
+            <script type="text/javascript">
+                document.getElementById("Button2").onclick = function () {
+                    location.href = "/logout";
+                };
+            </script>
+            </ul>
+          {{else}}
         <ul class="nav navbar-nav"> 
             <button type="button" id="Button1" class="btn btn-outline-success" data-toggle="modal" data-target="#modalLoginForm" style="margin-right: 10px;">Log In</button>
             <script type="text/javascript">
@@ -52,6 +62,7 @@
                 };
             </script>
           </ul>
+          {{/if}}
       </nav>
 
       <!-- Hero Section -->
