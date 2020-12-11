@@ -403,7 +403,20 @@ app.get("/dashboard", ensureCustomer, (req, res) => {
     res.render('checkout',{
       layout: "logAndReg",
       data: {"formData": req.session.user},
-    })
+    });
+    var mailOptions = {
+      from: 'germalikov@gmail.com',
+      to: req.session.user.email,
+      subject: 'Purchase',
+      text: 'Thank you for your purchase!'
+    };
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
   });
 
   app.get("/logout", function(req, res) {
