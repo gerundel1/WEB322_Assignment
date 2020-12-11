@@ -1,0 +1,42 @@
+
+<div class="container-fluid mb-5">
+    <div class="content-wrapper">	
+		<div class="item-container">	
+			<div class="container">	
+				<div class="col-md-12">
+					<div class="product col-md-3 service-image-left">
+                    
+						<center>
+							<img id="item-display" style="width: 200%" src="/meal_packages/{{data.image}}" alt="">
+						</center>
+					</div>
+				</div>
+					
+				<div class="col-md-6 text-right pull-right">
+					<div class="product-title h2">{{data.title}}</div>
+                    <hr>
+					<div class="product-desc h4">{{data.description}}</div>
+					<div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+					<hr>
+					<div class="product-price text-success h2">{{data.price}}</div>
+					<div class="product-stock">This package contains <strong>{{data.amount}}</strong> meal(s)</div>
+					<hr>
+					{{#if isNotClerk}}
+					<div class="btn-group cart">
+						<form action="/meal-description/{{data._id}}" method="POST">
+							<button type="submit" method="post" class="btn btn-success">
+								Add to cart 
+							</button>
+						</form>
+					</div>
+					<div class="btn-group wishlist">
+						<button type="button" class="btn btn-danger">
+							Add to wishlist 
+						</button>
+					</div>
+					{{/if}}
+				</div>
+			</div> 
+		</div>
+	</div>
+</div>

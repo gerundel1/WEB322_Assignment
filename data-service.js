@@ -5,10 +5,14 @@ const bcrypt = require('bcryptjs');
 mongoose.Promise = global.Promise;
 
 const userSchema = require('./data-models/user');
+const packageSchema = require('./data-models/package');
+const howSchema = require('./data-models/howItWorks');
 
 module.exports = function(mongoDBConnectionString){
 
     let User;
+    let Package;
+    let HowWorks;
 
     return {
         connect: function(){
@@ -25,8 +29,9 @@ module.exports = function(mongoDBConnectionString){
                 });
         
                 db.once('open', ()=>{
-                    User = db.model("User", userSchema);
-
+                    User = db.model('User', userSchema, 'users');
+                    Package = db.model('packages', packageSchema, 'packages');
+                    HowWorks = db.model('HowWorks', howSchema, 'main_data');
                     resolve();
                 });
             });
@@ -84,7 +89,99 @@ module.exports = function(mongoDBConnectionString){
                     reject(errors);
                 });
             })
-        } 
+        }, 
+
+        getRatedPackages: function() {
+            return new Promise(function(resolve,reject){
+                
+                Package.find({rated: true}).exec().then((packages) => {
+                    var jsPackages = packages.map(value => value.toObject());
+                    resolve(jsPackages);
+                })
+                .catch(err=>{
+                    console.log(err);
+                });
+
+            });
+        },
+        getAllPackages: function() {
+            return new Promise(function(resolve,reject){
+                Package.find({}).exec().then((packages) => {
+                    var jsPackages = packages.map(value => value.toObject());
+                    resolve(jsPackages);
+                })
+                .catch(err=>{
+                    console.log(err);
+                });
+
+            });
+        },
+
+        getPackageByFilename: function(filename) {
+            return new Promise(function(resolve,reject){
+                Package.findOne({image: filename}).exec().then((package) => {
+                    resolve(package.toObject());
+                })
+                .catch(err=>{
+                    console.log(err);
+                });
+
+            });
+        },
+        getPackageById: function(id) {
+            return new Promise(function(resolve,reject){
+                Package.findOne({_id: id}).exec().then((package) => {
+                    resolve(package.toObject());
+                })
+                .catch(err=>{
+                    console.log(err);
+                });
+
+            });
+        },
+
+        updatePackageById: function(id, formData) {
+            return new Promise(function(resolve,reject){
+                Package.findOne({_id: id}).exec().then((package) => {
+                    if(formData.title && formData.title != package.title) {
+                        package.title = formData.title;
+                    }
+                    if(formData.description && formData.description != package.description ) {
+                        package.description = formData.description;
+                    }
+                    if(formData.image && formData.image != package.image ) {
+                        package.image = formData.image;
+                    }
+                    if(formData.amount && formData.amount != package.amount ) {
+                        package.amount = formData.amount;
+                    }
+                    if(formData.price && formData.price != package.price ) {
+                        package.price = formData.price;
+                    }
+                    package.save();
+                    resolve(package.toObject());
+                })
+                .catch(err=>{
+                    console.log(err);
+                });
+
+            });
+        },
+
+        getMainData: function() {
+            return new Promise(function(resolve,reject){
+                
+                HowWorks.find({}).exec().then((elements) => {
+                    var jsElements = elements.map(value => value.toObject());
+                    resolve(jsElements);
+                })
+                .catch(err=>{
+                    console.log(err);
+                });
+
+            });
+        },
+
     }
 
 }

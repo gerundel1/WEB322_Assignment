@@ -15,5 +15,4 @@ var userSchema = new Schema({
     }  
 });
   
-
 module.exports = userSchema;

@@ -4,8 +4,7 @@
       </div>
       <div class="container">
         <div class="row no-gutters">
-          {{#each data}}
-            {{#unless isAMeal}}
+          {{#each mainData}}
             <div class="col-3" >
               <div class="card" style="width: 95%;">
                   <img class="card-img-top" src="{{image}}" alt="">
@@ -14,8 +13,7 @@
                   </div>
                 </div>
             </div>
-            {{/unless}}
-          {{/each}}  
+          {{/each}}
         </div>
       </div>
       <!-- Top Rated Meals Section -->
@@ -25,13 +23,13 @@
       <div class="container">
         <div class="row" id="meals">
           {{#each data}}
-            {{#if rated}}
             <div class="col-3">
-                <img class="card-img-top" src="{{image}}" alt="Image">
+              <a href="/meal-description/{{_id}}">
+                <img class="card-img-top" src="./meal_packages/{{image}}" alt="Image">
+              </a>
                 <h5 class="display-6 text-center">{{title}}</h5>
-                <h5 class="display-5 text-center text-success font-italic">{{price}}</h5>
+                <h5 class="display-5 text-center text-success font-italic">${{price}}</h5>
             </div>
-            {{/if}}
           {{/each}}
         </div>
       </div>

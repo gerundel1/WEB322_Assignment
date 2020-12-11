@@ -1,20 +1,65 @@
 <!-- Meal Packages -->  
+    
+    {{#if isClerk}}
     <div class="container">
-        <h1 class="display-5 text-center" style="margin-top: 2rem; margin-bottom: 2rem;">Check Out Our Meal Packages</h1>
+        <h1 class="display-4 text-center" style="margin-top: 2rem; margin-bottom: 2rem;">Welcome to your work environment!</h1>
     </div>
+    <div class="row justify-content-center" style="margin-bottom: 2rem;">
+        <button type="button" id="Button3" class="btn btn-outline-danger" data-toggle="modal" data-target="#modalRegisterForm">Add Package</button>
+            <script type="text/javascript">
+                document.getElementById("Button3").onclick = function () {
+                    location.href = "/add-meals";
+                };
+            </script>
+    </div>
+    {{else}}
+    <div class="container">
+        <h1 class="display-5 text-center" style="margin-top: 2rem; margin-bottom: 2rem;">Now you can choose your favorite meal!</h1>
+    </div>
+    {{/if}}
       <div class="container">
         <div class="row no-gutters" id="meal_packages" style="margin-bottom: 3em;">
-         {{#each data}}
+         {{#if isClerk}} {{#each data}} 
             <div class="col-3">
-                <div class="card" style="width: 95%;">
-                    <img class="card-img-top" src="{{image}}" alt="Card image cap">
+                <div class="card" style="width: 95%; margin-top: 1rem;">
+                    <a href="/meal-description/{{_id}}">
+                    <img class="card-img-top" src="./meal_packages/{{image}}" alt="Card image cap">
+                    </a>
                     <div class="card-body">
                         <h5 class="display-6 text-center">{{title}}</h5>
-                        <h5 class="display-5 text-center text-success font-italic">{{price}}</h5>
+                        <h5 class="display-5 text-center text-success font-italic">${{price}}</h5>
+                        <h5 class="display-6 text-center">Number of Meals: {{amount}}</h5>
+                        <div class="row">
+                            <form action="/delete-meal/{{image}}" method="post">
+                                <button type="submit" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"> Delete</span>
+                                </button>
+                            </form>
+                             <form action="/update-meal/{{image}}" method="GET">
+                                <button type="submit" class="btn btn-default" aria-label="Right Align">
+                                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"> Edit</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         {{/each}}
+         {{else}}
+         {{#each data}} 
+            <div class="col-3">
+                <div class="card" style="width: 95%; margin-top: 1rem;">
+                    <a href="/meal-description/{{_id}}">
+                    <img class="card-img-top" src="./meal_packages/{{image}}" alt="Card image cap">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="display-6 text-center">{{title}}</h5>
+                        <h5 class="display-5 text-center text-success font-italic">${{price}}</h5>
                         <h5 class="display-6 text-center">Number of Meals: {{amount}}</h5>
                     </div>
                 </div>
             </div>
          {{/each}}
+         {{/if}}
         </div>
       </div>

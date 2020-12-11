@@ -9,11 +9,17 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    {{#if desc}}
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+    {{/if}}
+
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     
     <title>FreshMeals Homepage</title>
 </head>
@@ -40,6 +46,12 @@
         </div>
         {{#if data.formData.role}}
             <ul class="nav navbar-nav"> 
+            <button type="button" id="Button1" class="btn btn-outline-success" data-toggle="modal" data-target="#modalLoginForm" style="margin-right: 10px;">Cart</button>
+            <script type="text/javascript">
+                document.getElementById("Button1").onclick = function () {
+                    location.href = "/cart-items";
+                };
+            </script>
             <button type="button" id="Button2" class="btn btn-outline-info" data-toggle="modal" data-target="#modalRegisterForm">Log Out</button>
             <script type="text/javascript">
                 document.getElementById("Button2").onclick = function () {
