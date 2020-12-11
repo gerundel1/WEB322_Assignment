@@ -9,7 +9,8 @@
 * Online (Heroku, https://...) Link: https://shrouded-scrubland-26194.herokuapp.com/
 *
 * GitHub or Bitbucket repo Link: https://github.com/gerundel1/WEB322_Assignment
-*
+* 
+* clerk login: germalikov@freshmeals.ca, password: 83109754116gW
 ********************************************************************************/ 
 
 var HTTP_PORT = process.env.PORT || 8080;

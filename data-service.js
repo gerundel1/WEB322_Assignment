@@ -158,6 +158,9 @@ module.exports = function(mongoDBConnectionString){
                     if(formData.price && formData.price != package.price ) {
                         package.price = formData.price;
                     }
+                    if(formData.rated && formData.rated != package.rated) {
+                        package.rated = formData.rated;
+                    }
                     package.save();
                     resolve(package.toObject());
                 })
